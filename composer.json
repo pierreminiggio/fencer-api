@@ -1,12 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "pierreminiggio/febncer-api",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
-    "license": "MIT",
+    "description": "API for the Fencer Game",
     "require": {
         "php": "^7.3",
         "fideloper/proxy": "^4.2",
