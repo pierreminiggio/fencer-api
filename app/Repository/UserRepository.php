@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\User;
 use App\Repository\Exception\RepositoryException;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -19,10 +20,12 @@ class UserRepository
         $user->email = $email;
         $user->password = Hash::make($password);
 
-        if (! $user->save()) {
-            throw new RepositoryException('user creation failed');
+        try {
+            $user->saveOrFail();
+        } catch (Exception $e) {
+            throw new RepositoryException('user creation failed : ' . $e->getMessage());
         }
-
+        
         return $user;
     }
 }

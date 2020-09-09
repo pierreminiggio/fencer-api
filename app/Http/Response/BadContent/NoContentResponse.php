@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Response;
+namespace App\Http\Response\BadContent;
 
 class NoContentResponse extends BadContentResponse
 {

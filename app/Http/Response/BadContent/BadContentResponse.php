@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Response;
+namespace App\Http\Response\BadContent;
 
 use Illuminate\Http\Response;
 

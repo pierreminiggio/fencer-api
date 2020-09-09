@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Response\NoContentResponse;
-use App\Http\Response\ValidatorFailedResponse;
+use App\Http\Response\BadContent\NoContentResponse;
+use App\Http\Response\BadContent\ValidatorFailedResponse;
+use App\Http\Response\ServerError\TechnicalErrorResponse;
 use App\Repository\UserRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,6 +29,10 @@ class AuthController extends Controller
             return new ValidatorFailedResponse($validator->errors());
         }
 
-        (new UserRepository())->create($content['login'], $content['email'], $content['password']);
+        try {
+            (new UserRepository())->create($content['login'], $content['email'], $content['password']);
+        } catch (Exception $e) {
+            return new TechnicalErrorResponse();
+        }
     }
 }
