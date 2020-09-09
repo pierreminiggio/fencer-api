@@ -56,5 +56,9 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return new ValidatorFailedResponse($validator->errors());
         }
+
+        $user = (new UserRepository())->findForLoginOrEmail($content['login']);
+        
+        dd($user);
     }
 }
