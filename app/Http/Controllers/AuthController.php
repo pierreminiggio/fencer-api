@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Response\BadContent\NoContentResponse;
 use App\Http\Response\BadContent\ValidatorFailedResponse;
 use App\Http\Response\ServerError\TechnicalErrorResponse;
+use App\Models\User;
 use App\Repository\UserRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,9 +20,10 @@ class AuthController extends Controller
             return new NoContentResponse();
         }
 
+        $userTable = (new User())->getTable();
         $validator = Validator::make($content, [
-            'login' => 'required',
-            'email' => 'required',
+            'login' => 'required|unique:' . $userTable,
+            'email' => 'required|unique:' . $userTable,
             'password' => 'required'
         ]);
 
