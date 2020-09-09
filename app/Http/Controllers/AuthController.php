@@ -74,7 +74,9 @@ class AuthController extends Controller
                 return new TechnicalErrorResponse();
             }
             
-            dd($token);
+            return new Response([
+                'token' => $token->token
+            ]);
         }
 
         return new UnauthorizedResponse();
