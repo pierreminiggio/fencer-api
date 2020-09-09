@@ -16,6 +16,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware(NoAuth::class)
                 ->group(base_path('routes/doc.php'))
             ;
+            Route::middleware(NoAuth::class)
+                ->group(base_path('routes/auth.php'))
+            ;
         });
     }
 }
