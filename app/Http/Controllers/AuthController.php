@@ -9,6 +9,7 @@ use App\Http\Response\Success\CreatedResponse;
 use App\Http\Response\Unauthorized\UnauthorizedResponse;
 use App\Models\User;
 use App\Repository\UserRepository;
+use App\Repository\UserTokenRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -66,7 +67,14 @@ class AuthController extends Controller
         }
 
         if (Hash::check($content['password'], $user->password)) {
-            dd('test');
+
+            try {
+                $token = (new UserTokenRepository())->createForUser($user->id);
+            } catch (Exception $e) {
+                return new TechnicalErrorResponse();
+            }
+            
+            dd($token);
         }
 
         return new UnauthorizedResponse();

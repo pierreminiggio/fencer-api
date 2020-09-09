@@ -18,7 +18,7 @@ class CreateUserTokensTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('token', 30)->unique();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
             $table->timestamp('archived_at')->nullable();
         });
     }

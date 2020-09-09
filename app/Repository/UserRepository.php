@@ -24,7 +24,7 @@ class UserRepository
         try {
             $user->saveOrFail();
         } catch (Exception $e) {
-            throw new RepositoryException('user creation failed : ' . $e->getMessage());
+            throw new RepositoryException('User creation failed : ' . $e->getMessage());
         }
         
         return $user;

@@ -11,6 +11,9 @@ use Illuminate\Notifications\Notifiable;
  * @property string $login
  * @property string $email
  * @property string $password
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon|null $email_verified_at
  */
 class User extends Authenticatable
 {
