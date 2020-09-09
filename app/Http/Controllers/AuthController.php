@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Response\BadContent\NoContentResponse;
 use App\Http\Response\BadContent\ValidatorFailedResponse;
 use App\Http\Response\ServerError\TechnicalErrorResponse;
+use App\Http\Response\Success\CreatedResponse;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Exception;
@@ -36,5 +37,7 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return new TechnicalErrorResponse();
         }
+
+        return new CreatedResponse();
     }
 }
