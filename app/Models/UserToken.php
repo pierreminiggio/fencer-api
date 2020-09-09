@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $token
  * @property mixed $created_at
+ * @property mixed $archived_at
  */
 class UserToken extends Model
 {
