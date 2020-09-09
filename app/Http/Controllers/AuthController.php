@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Response\NoContentResponse;
 use App\Http\Response\ValidatorFailedResponse;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +27,6 @@ class AuthController extends Controller
             return new ValidatorFailedResponse($validator->errors());
         }
 
-        dd($content);
+        (new UserRepository())->create($content['login'], $content['email'], $content['password']);
     }
 }
