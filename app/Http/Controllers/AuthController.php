@@ -6,6 +6,7 @@ use App\Http\Response\BadContent\NoContentResponse;
 use App\Http\Response\BadContent\ValidatorFailedResponse;
 use App\Http\Response\ServerError\TechnicalErrorResponse;
 use App\Http\Response\Success\CreatedResponse;
+use App\Http\Response\Unauthorized\UnauthorizedResponse;
 use App\Models\User;
 use App\Repository\UserRepository;
 use Exception;
@@ -58,7 +59,11 @@ class AuthController extends Controller
         }
 
         $user = (new UserRepository())->findForLoginOrEmail($content['login']);
-        
+
+        if ($user === null) {
+            return new UnauthorizedResponse();
+        }
+
         dd($user);
     }
 }
