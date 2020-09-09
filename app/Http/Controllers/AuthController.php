@@ -12,6 +12,7 @@ use App\Repository\UserRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -64,6 +65,10 @@ class AuthController extends Controller
             return new UnauthorizedResponse();
         }
 
-        dd($user);
+        if (Hash::check($content['password'], $user->password)) {
+            dd('test');
+        }
+
+        return new UnauthorizedResponse();
     }
 }
