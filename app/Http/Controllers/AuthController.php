@@ -10,12 +10,13 @@ use App\Models\User;
 use App\Repository\UserRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 
-    public function register(Request $request)
+    public function register(Request $request): Response
     {
         if (empty($content = json_decode($request->getContent(), true))) {
             return new NoContentResponse();
@@ -39,5 +40,21 @@ class AuthController extends Controller
         }
 
         return new CreatedResponse();
+    }
+
+    public function login(Request $request): Response
+    {
+        if (empty($content = json_decode($request->getContent(), true))) {
+            return new NoContentResponse();
+        }
+
+        $validator = Validator::make($content, [
+            'login' => 'required',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return new ValidatorFailedResponse($validator->errors());
+        }
     }
 }
