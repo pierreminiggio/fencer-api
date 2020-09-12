@@ -67,7 +67,6 @@ class AuthController extends Controller
         }
 
         if (Hash::check($content['password'], $user->password)) {
-
             try {
                 $token = (new UserTokenRepository())->createForUser($user->id);
             } catch (Exception $e) {
