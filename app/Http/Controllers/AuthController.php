@@ -7,14 +7,14 @@ use App\Http\Response\BadContent\ValidatorFailedResponse;
 use App\Http\Response\ServerError\TechnicalErrorResponse;
 use App\Http\Response\Success\CreatedResponse;
 use App\Http\Response\Unauthorized\UnauthorizedResponse;
-use App\Models\User;
 use App\Repository\UserRepository;
 use App\Repository\UserTokenRepository;
+use App\Validator\Auth\LoginValidatorFactory;
+use App\Validator\Auth\RegisterValidatorFactory;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -25,12 +25,7 @@ class AuthController extends Controller
             return new NoContentResponse();
         }
 
-        $userTable = (new User())->getTable();
-        $validator = Validator::make($content, [
-            'login' => 'required|unique:' . $userTable,
-            'email' => 'required|unique:' . $userTable,
-            'password' => 'required'
-        ]);
+        $validator = (new RegisterValidatorFactory())->make($content);
 
         if ($validator->fails()) {
             return new ValidatorFailedResponse($validator->errors());
@@ -51,10 +46,7 @@ class AuthController extends Controller
             return new NoContentResponse();
         }
 
-        $validator = Validator::make($content, [
-            'login' => 'required',
-            'password' => 'required'
-        ]);
+        $validator = (new LoginValidatorFactory())->make($content);
 
         if ($validator->fails()) {
             return new ValidatorFailedResponse($validator->errors());
