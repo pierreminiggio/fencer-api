@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Validator as ValidatorFactory;
 
 abstract class AbstractValidatorFactory
 {
-    
-    private array $rules;
+    protected array $rules = [];
 
     public function make(array $content): Validator
     {
